@@ -1,0 +1,138 @@
+{
+  "name": "Layout Test",
+  "version": "1.0",
+  "separator": "fixed",
+  "format": "txt",
+  "sessions": {
+    "01": {
+      "name": "detalhes",
+      "fields": {
+         "001": {
+           "name": "filler",
+           "type": "text",
+           "start": 1,
+           "end": 4,
+           "default": ""
+         },
+         "002": {
+           "name": "cnpj_emitente",
+           "type": "text",
+           "start": 5,
+           "end": 18
+         },
+         "003": {
+           "name": "data_entrada",
+           "type": "date",
+           "start": 19,
+           "end": 24
+         },
+         "004": {
+           "name": "data_emissao",
+           "type": "date",
+           "start": 25,
+           "end": 30
+         },
+         "005": {
+           "name": "numero_documento",
+           "type": "integer",
+           "start": 31,
+           "end": 36
+         },
+         "006": {
+           "name": "especie_documento",
+           "type": "text",
+           "start": 37,
+           "end": 39
+         },
+         "007": {
+           "name": "serie_subserie",
+           "type": "text",
+           "start": 40,
+           "end": 42
+         },
+         "008": {
+           "name": "item_desdobramento",
+           "type": "text",
+           "start": 43,
+           "end": 43
+         },
+         "009": {
+           "name": "codigo_contabil",
+           "type": "integer",
+           "start": 44,
+           "end": 48
+         },
+         "010": {
+           "name": "cfop_antigo",
+           "type": "integer",
+           "start": 49,
+           "end": 51
+         },
+         "011": {
+           "name": "valor_mercadorias",
+           "type": "integer",
+           "start": 52,
+           "end": 65,
+           "decimal": 2
+         },
+         "012": {
+           "name": "base_icms",
+           "type": "integer",
+           "start": 66,
+           "end": 79,
+           "decimal": 2
+         },
+         "013": {
+           "name": "icms_creditado",
+           "type": "integer",
+           "start": 80,
+           "end": 93,
+           "decimal": 2
+         },
+         "014": {
+           "name": "isentas_icms",
+           "type": "integer",
+           "start": 94,
+           "end": 107,
+           "decimal": 2
+         },
+         "015": {
+           "name": "outras_icms",
+           "type": "integer",
+           "start": 108,
+           "end": 121,
+           "decimal": 2
+         },
+         "015": {
+           "name": "ipi_nao_creditado",
+           "type": "integer",
+           "start": 122,
+           "end": 135,
+           "decimal": 2
+         },
+         "016": {
+           "name": "aliquota_icms",
+           "type": "integer",
+           "start": 136,
+           "end": 140,
+           "decimal": 2
+         },
+         "017": {
+           "name": "base_ipi",
+           "type": "integer",
+           "start": 141,
+           "end": 154,
+           "decimal": 2
+         },
+         "018": {
+           "name": "ipi_creditado",
+           "type": "integer",
+           "start": 141,
+           "end": 154,
+           "decimal": 2
+         }
+      }
+    }
+  }
+}
+
