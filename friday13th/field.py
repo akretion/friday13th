@@ -61,7 +61,7 @@ class BaseField(object):
         if self.value is None:
             if self.default is not None:
                 if self.decimais:
-                    self.valor = Decimal('{0:0.{1}f}'.format(
+                    self.value = Decimal('{0:0.{1}f}'.format(
                         self.default, self.decimais))
                 else:
                     self.value = self.default
@@ -82,7 +82,7 @@ class BaseField(object):
             return self.value.strftime(self.format).encode('utf8')
 
         if self.type == 'integer':
-            return u'{0:0{1}d}'.format(self.valor, self.digitos)
+            return u'{0:0{1}d}'.format(self.value, self.decimais)
 
         return u'{0:{1}}'.format(self.value, self.length)
 
