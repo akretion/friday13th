@@ -82,7 +82,7 @@ class BaseField(object):
             return self.value.strftime(self.format).encode('utf8')
 
         if self.type == 'integer':
-            return u'{0:0{1}d}'.format(self.value, self.decimais)
+            return u'{0:0{1}d}'.format(self.value, self.length)
 
         return u'{0:{1}}'.format(self.value, self.length)
 
