@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Friday13th',
-    version='0.01',
+    version='0.0.1',
     author='Akretion',
     author_email='contact@akretion.com',
     url='https://github.com/akretion/friday13th',
