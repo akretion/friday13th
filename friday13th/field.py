@@ -3,7 +3,7 @@
 from decimal import Decimal, InvalidOperation
 from datetime import datetime, date
 
-import errors
+from . import errors
 
 
 class BaseField(object):
@@ -16,9 +16,9 @@ class BaseField(object):
 
     @value.setter
     def value(self, value):
-        if self.type == 'text':
+        if self.type == "text":
             if value:
-                if not isinstance(value, unicode):
+                if not isinstance(value, str):
                     raise errors.TypeError(self, value)
                 if len(value) > self.length:
                     raise errors.OverSizeError(self, value)
@@ -44,50 +44,50 @@ class BaseField(object):
                 if not self.format:
                     raise errors.WrongDateFormat(self, value)
 
-                date_value = value.strftime(self.format).encode('utf8')
+                date_value = value.strftime(self.format)
 
-                if len(str(date_value).replace('-', '')) > self.length:
+                if len(str(date_value).replace("-", "")) > self.length:
                     raise errors.OverSizeError(self, date_value)
 
         else:
-            if not isinstance(value, (int, long)):
+            if not isinstance(value, (int,)):
                 raise errors.TypeError(self, value)
             if len(str(value)) > self.length:
                 raise errors.OverSizeError(self, value)
 
         self._value = value
 
-    def __unicode__(self):
+    def __str__(self):
         if self.value is None:
             if self.default is not None:
                 if self.decimais:
-                    self.value = Decimal('{0:0.{1}f}'.format(
+                    self.value = Decimal("{0:0.{1}f}".format(
                         self.default, self.decimais))
                 else:
                     self.value = self.default
             else:
                 raise errors.RequiredFieldError(self.name)
 
-        if self.type == 'text' or self.decimais:
+        if self.type == "text" or self.decimais:
             if self.decimais:
-                value = unicode(self.value)
+                value = str(self.value)
                 chars_faltantes = self.length - len(value)
-                return (u'0' * chars_faltantes) + value
+                return ("0" * chars_faltantes) + value
             else:
                 chars_faltantes = self.length - len(self.value)
-                return self.value + (u' ' * chars_faltantes)
+                return self.value + (" " * chars_faltantes)
 
-        if self.type == 'date' and self.value:
+        if self.type == "date" and self.value:
 
-            return self.value.strftime(self.format).encode('utf8')
+            return self.value.strftime(self.format)
 
-        if self.type == 'integer':
-            return u'{0:0{1}d}'.format(self.value, self.length)
+        if self.type == "integer":
+            return "{0:0{1}d}".format(self.value, self.length)
 
-        return u'{0:{1}}'.format(self.value, self.length)
+        return "{0:{1}}".format(self.value, self.length)
 
     def __repr__(self):
-        return unicode(self)
+        return str(self)
 
     def __set__(self, instance, value):
         self.value = value

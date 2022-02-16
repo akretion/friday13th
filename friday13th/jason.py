@@ -34,8 +34,8 @@ class File(object):
     def add_record(self, record):
         self._records.append(record)
 
-    def __unicode__(self):
-        return u'\r\n'.join(unicode(record) for record in self._records)
+    def __str__(self):
+        return "\r\n".join(str(record) for record in self._records)
 
     def __len__(self):
         return len(self._records)

@@ -13,15 +13,14 @@ class FieldValueError(Friday13thError):
         self.value = value
         super(FieldValueError, self).__init__(self)
 
-    def __unicode__(self):
-        return u'field:{0} type:{1} decimais:{2} length:{3} - value:{4}'.\
-            format(
-                self.field.name,
-                self.field.type,
-                self.field.decimais,
-                self.field.length,
-                repr(self.value),
-            )
+    def __str__(self):
+        return "field:{0} type:{1} decimais:{2} length:{3} - value:{4}".format(
+            self.field.name,
+            self.field.type,
+            self.field.decimais,
+            self.field.length,
+            repr(self.value),
+        )
 
 
 class OverSizeError(FieldValueError):
@@ -47,8 +46,8 @@ class ArgsMissingError(Friday13thError):
         self.args_missing = args_missing
         super(ArgsMissingError, self).__init__(self)
 
-    def __unicode__(self):
-        return (u'Missing arguments: {0}').format(', '.join(self.args_missing))
+    def __str__(self):
+        return ("Missing arguments: {0}").format(", ".join(self.args_missing))
 
 
 class EmptyFileError(Friday13thError):

@@ -11,14 +11,14 @@ except ImportError:
     from ordereddict import OrderedDict
 
 from .field import BaseField
-import errors
+from . import errors
 
 
 class BaseRecord(object):
 
     def __new__(cls, **kwargs):
         fields = OrderedDict()
-        attrs = {'_fields': fields}
+        attrs = {"_fields": fields}
 
         for Field in list(cls._fields_cls.values()):
             field = Field()
@@ -48,13 +48,13 @@ class BaseRecord(object):
             valor = registro_str[campo.inicio:campo.fim].strip()
             if campo.decimais:
                 exponente = campo.decimais * -1
-                dec = valor[:exponente] + '.' + valor[exponente:]
+                dec = valor[:exponente] + "." + valor[exponente:]
                 try:
                     campo.valor = Decimal(dec)
                 except InvalidOperation:
                     raise # raise custom?
 
-            elif campo.formato == 'num':
+            elif campo.formato == "num":
                 try:
                     campo.valor = int(valor)
                 except ValueError:
@@ -62,9 +62,9 @@ class BaseRecord(object):
             else:
                 campo.valor = valor
 
-    def __unicode__(self):
-        return ''.join(
-            [unicode(field) for field in list(self._fields.values())])
+    def __str__(self):
+        return "".join(
+            [str(field) for field in list(self._fields.values())])
 
 
 class Records(object):
@@ -75,9 +75,9 @@ class Records(object):
         spec = json.load(spec_file)
         spec_file.close()
 
-        sessions_specs = spec.get('sessions', {})
+        sessions_specs = spec.get("sessions", {})
         for key in sorted(sessions_specs.keys()):
-            setattr(self, sessions_specs[key].get('name').encode('utf8'),
+            setattr(self, sessions_specs[key].get("name"),
                 self._load_spec(sessions_specs[key]))
 
     #TODO
@@ -86,38 +86,38 @@ class Records(object):
         spec = json.load(spec_file, object_pairs_hook=OrderedDict)
         spec_file.close()
 
-        sessions_specs = spec.get('sessions', {})
+        sessions_specs = spec.get("sessions", {})
         for key in sorted(sessions_specs.keys()):
-            for field in sessions_specs[key].get('fields'):
-                field_name = sessions_specs[key].get('fields')[field].get('name')
-                field_start = sessions_specs[key].get('fields')[field].get('start')
-                field_end = sessions_specs[key].get('fields')[field].get('end')
-                size = sessions_specs[key].get('fields')[field].get('end') - (sessions_specs[key].get('fields')[field].get('start') - 1)
+            for field in sessions_specs[key].get("fields"):
+                field_name = sessions_specs[key].get("fields")[field].get("name")
+                field_start = sessions_specs[key].get("fields")[field].get("start")
+                field_end = sessions_specs[key].get("fields")[field].get("end")
+                size = sessions_specs[key].get("fields")[field].get("end") - (sessions_specs[key].get("fields")[field].get("start") - 1)
 
     def _load_spec(self, spec):
         fields = OrderedDict()
-        attrs = {'_fields_cls': fields}
-        cls_name = spec.get('name').encode('utf8')
-        field_specs = spec.get('fields', {})
+        attrs = {"_fields_cls": fields}
+        cls_name = spec.get("name")
+        field_specs = spec.get("fields", {})
         for key in sorted(field_specs.keys()):
 
             field_spec = field_specs[key]
 
-            name = field_spec.get('name')
-            start = field_spec.get('start') - 1
-            end = field_spec.get('end')
+            name = field_spec.get("name")
+            start = field_spec.get("start") - 1
+            end = field_spec.get("end")
 
             field_attrs = {
-                'name': name,
-                'start': start,
-                'end': end,
-                'length': end - start,
-                'type': field_spec.get('type', 'text'),
-                'decimais': field_spec.get('decimais', 0),
-                'default': field_spec.get('default'),
-                'format': field_spec.get('format', '%Y-%m-%d'),
+                "name": name,
+                "start": start,
+                "end": end,
+                "length": end - start,
+                "type": field_spec.get("type", "text"),
+                "decimais": field_spec.get("decimais", 0),
+                "default": field_spec.get("default"),
+                "format": field_spec.get("format", "%Y-%m-%d"),
             }
-            Field = type(name.encode('utf8'), (BaseField,), field_attrs)
+            Field = type(name, (BaseField,), field_attrs)
             entry = {Field.name: Field}
 
             fields.update(entry)
